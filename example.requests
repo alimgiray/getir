@@ -1,0 +1,10 @@
+# Create a new record at in memory database
+CURL -X POST -d '{ "key": "active-tabs", "value": "getir" }' http://localhost:8080/in-memory
+
+# Get created record from in memory database
+CURL -X GET http://localhost:8080/in-memory?key=active-tabs
+
+# Query mongo endpoint
+CURL -X POST -d '{ "startDate": "2016-01-26", "endDate": "2018-02-02", "minCount": 2700, "maxCount": 3000 }' http://localhost:8080/remote
+
+
