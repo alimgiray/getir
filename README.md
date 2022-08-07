@@ -17,7 +17,7 @@
 - You can use `example.requests` file for manuel testing. It is also a good place to examine endpoints.
 - For mongo endpoints use `/remote` and for in-memory endpoints use `/in-memory`.
 
-### Testing on live
+### Live
 
 - You can use [getir.giray.io](https://getir.giray.io) for live environment.
 
