@@ -4,6 +4,7 @@
 
 - Create a `.env` file in root folder of the project. For default values you can rename `.env.example` into `.env`
 - Use `go mod download` to install all required packages.
+- If no port is provided, app runs at `:3000`.
 
 ### How to run?
 
@@ -29,3 +30,6 @@
 #### Architecture & Patterns
 
 - Domain related packages placed under `/internal` folder.
+- All structs (or objects) placed in `model.go` files in their packages.
+- Incoming requests are managed by `handler.go` files (validation etc).
+- Domain logic resides at `service.go` files.

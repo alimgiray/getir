@@ -5,10 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/alimgiray/getir/adapter/sqlite"
 	"github.com/alimgiray/getir/internal/utils"
-
-	"gorm.io/gorm"
 )
 
 var (
@@ -19,11 +16,11 @@ var (
 )
 
 type InMemoryHandler struct {
-	db *gorm.DB
+	service *MemoryService
 }
 
 func NewInMemoryHandler() *InMemoryHandler {
-	return &InMemoryHandler{db: sqlite.Connect(&Record{})}
+	return &InMemoryHandler{service: NewMemoryService()}
 }
 
 func (h *InMemoryHandler) Handle(w http.ResponseWriter, r *http.Request) {
@@ -43,9 +40,7 @@ func (h *InMemoryHandler) handleGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	record := Record{Key: key}
-	err := h.db.Find(&record).Error
-
+	record, err := h.service.FindRecord(key)
 	if err != nil {
 		utils.ErrJSON(w, valueNotFoundErr, http.StatusBadRequest)
 		return
@@ -55,7 +50,7 @@ func (h *InMemoryHandler) handleGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *InMemoryHandler) handlePost(w http.ResponseWriter, r *http.Request) {
-	var record Record
+	var record *Record
 
 	err := json.NewDecoder(r.Body).Decode(&record)
 	if err != nil {
@@ -68,7 +63,7 @@ func (h *InMemoryHandler) handlePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.db.Save(&record).Error
+	err = h.service.CreateNewRecord(record)
 	if err != nil {
 		utils.ErrJSON(w, saveErr, http.StatusBadRequest)
 		return
