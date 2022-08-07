@@ -10,12 +10,12 @@
 
 - For development environment, use `make dev` command.
 - For production, use `make all` command.
+- For mongo endpoints use `/remote` and for in-memory endpoints use `/in-memory`.
 
 ### Running Tests
 
 - Run `make test` command.
 - You can use `example.requests` file for manuel testing. It is also a good place to examine endpoints.
-- For mongo endpoints use `/remote` and for in-memory endpoints use `/in-memory`.
 
 ### Live
 
