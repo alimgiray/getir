@@ -19,6 +19,6 @@ func (s *MemoryService) CreateNewRecord(record *Record) error {
 
 func (s *MemoryService) FindRecord(key string) (Record, error) {
 	record := Record{Key: key}
-	err := s.db.Find(&record).Error
+	err := s.db.First(&record).Error
 	return record, err
 }
